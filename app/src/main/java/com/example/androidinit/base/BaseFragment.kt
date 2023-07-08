@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 
 open class BaseFragment : Fragment() {
 
@@ -23,5 +25,9 @@ open class BaseFragment : Fragment() {
                 baseCompose.baseScreen.invoke()
             }
         }
+    }
+
+    protected fun navigate(destination: NavDirections) = with(findNavController()) {
+        currentDestination?.getAction(destination.actionId)?.let { navigate(destination) }
     }
 }
